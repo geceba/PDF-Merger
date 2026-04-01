@@ -11,6 +11,11 @@ import subprocess
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 class App(TkinterDnD.Tk):
     def __init__(self):
         super().__init__()
@@ -31,7 +36,7 @@ class App(TkinterDnD.Tk):
         )
         self.list_frame.pack(fill="both", expand=True, padx=5, pady=5)
 
-        self.icon_big_pdf = ctk.CTkImage(Image.open("icons/file-plus-corner.png"), size=(100, 100))
+        self.icon_big_pdf = ctk.CTkImage(Image.open(resource_path("icons/file-plus-corner.png")), size=(100, 100))
         self.empty_icon_label = ctk.CTkLabel(self.container_list, text="", image=self.icon_big_pdf)
         self.empty_icon_label.place(relx=0.5, rely=0.4, anchor="center")
 
@@ -45,12 +50,12 @@ class App(TkinterDnD.Tk):
         self.selected_index = None
 
         # cargar icono
-        self.icono_pdf = ctk.CTkImage(Image.open("icons/pdf.png"), size=(24, 24))
-        self.icon_merge = ctk.CTkImage(Image.open("icons/link.png"), size=(20, 20))
-        self.icon_chevron_up = ctk.CTkImage(Image.open("icons/square-chevron-up.png"), size=(20, 20))
-        self.icon_chevron_down = ctk.CTkImage(Image.open("icons/square-chevron-down.png"), size=(20, 20))
-        self.icon_trash = ctk.CTkImage(Image.open("icons/trash-2.png"), size=(20, 20))
-        self.icon_add = ctk.CTkImage(Image.open("icons/plus.png"), size=(20, 20))
+        self.icono_pdf = ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24))
+        self.icon_merge = ctk.CTkImage(Image.open(resource_path("icons/link.png")), size=(20, 20))
+        self.icon_chevron_up = ctk.CTkImage(Image.open(resource_path("icons/square-chevron-up.png")), size=(20, 20))
+        self.icon_chevron_down = ctk.CTkImage(Image.open(resource_path("icons/square-chevron-down.png")), size=(20, 20))
+        self.icon_trash = ctk.CTkImage(Image.open(resource_path("icons/trash-2.png")), size=(20, 20))
+        self.icon_add = ctk.CTkImage(Image.open(resource_path("icons/plus.png")), size=(20, 20))
 
         self.files = []
 
