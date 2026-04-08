@@ -7,9 +7,13 @@ import customtkinter as ctk
 import os
 import sys
 import subprocess
+import ctypes
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
+
+myappid = 'just.pdfmerger' 
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -22,7 +26,7 @@ class App(TkinterDnD.Tk):
 
         self.title("PDF Merger")
         self.geometry("700x500")
-        self.iconbitmap(resource_path("icons/app_icon.ico"))
+        self.iconbitmap(resource_path("icons/favicon.ico"))
 
         self.frame = ctk.CTkFrame(self)
         self.frame.pack(fill="both", expand=True, padx=10, pady=10)
