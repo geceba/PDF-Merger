@@ -22,6 +22,7 @@ class App(TkinterDnD.Tk):
 
         self.title("PDF Merger")
         self.geometry("700x500")
+        self.iconbitmap(resource_path("icons/app_icon.ico"))
 
         self.frame = ctk.CTkFrame(self)
         self.frame.pack(fill="both", expand=True, padx=10, pady=10)

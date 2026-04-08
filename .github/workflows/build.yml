@@ -29,13 +29,13 @@ jobs:
       run: |
         # Usamos --noconsole y --onefile para un ejecutable limpio
         # Ajusta "main.py" si tu archivo principal se llama distinto
-        pyinstaller --noconsole --onefile --collect-all tkinterdnd2 --add-data "icons;icons" main.py
+        pyinstaller --noconsole --onefile --collect-all tkinterdnd2 --add-data "icons;icons" --icon "icons/app_icon.ico" main.py
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/main.exe
+        files: dist/pdf-merger.exe
         name: Release ${{ github.ref_name }}
         body: |
           Versión automatizada de PDF Merger Pro.
