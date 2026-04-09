@@ -31,9 +31,8 @@ jobs:
         pytest src/tests
 
     - name: Build with PyInstaller
+      if: success()
       run: |
-        # Usamos --noconsole y --onefile para un ejecutable limpio
-        # Ajusta "main.py" si tu archivo principal se llama distinto
         pyinstaller --noconsole --onefile -n "PDF-Merger" --collect-all tkinterdnd2 --add-data "icons;icons" --icon "icons/favicon.ico" main.py
 
     - name: Create Release
