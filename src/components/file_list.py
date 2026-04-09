@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinterdnd2 import DND_FILES
 from src.utils.constants import COLOR_BG_LIST, COLOR_TEXT_SECONDARY
+from src.utils.i18n import TEXTS
 from .file_item import FileItem
 
 class FileListContainer(ctk.CTkFrame):
@@ -18,7 +19,7 @@ class FileListContainer(ctk.CTkFrame):
 
         self.empty_icon = ctk.CTkLabel(self, text="", image=icons['big_pdf'])
         self.empty_text = ctk.CTkLabel(
-            self, text="Arrastra PDFs aquí o haz clic en 'Agregar'",
+            self, text=TEXTS['empty_msg'],
             text_color=COLOR_TEXT_SECONDARY
         )
 

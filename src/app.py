@@ -9,6 +9,7 @@ from src.components.action_buttons import ActionButtons
 from src.components.file_list import FileListContainer
 from src.core.pdf_engine import merge_pdfs, open_file
 from src.utils.helpers import resource_path
+from src.utils.i18n import TEXTS
 
 myappid = 'just.pdfmerger' 
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
@@ -64,7 +65,7 @@ class App(TkinterDnD.Tk):
 
         ctk.CTkButton(
             self.frame, 
-            text="Unir PDFs", 
+            text=TEXTS['btn_merge'], 
             image=self.icon_merge, 
             compound="right", 
             fg_color="#10897B", 
@@ -138,7 +139,7 @@ class App(TkinterDnD.Tk):
 
     def join(self):
         if not self.files:
-            messagebox.showwarning("Aviso", "No hay PDFs")
+            messagebox.showwarning("Aviso", TEXTS['msg_no_pdfs'])
             return
 
         output = filedialog.asksaveasfilename(defaultextension=".pdf")
