@@ -12,7 +12,5 @@ Modern UI: Native Dark Mode with a minimalist design powered by CustomTkinter.
 
 Safe & Private: All processing happens locally on your machine; your files never leave your computer.
 
-![alt text](image-4.png)
-
-![alt text](image-3.png)
+![PDF MERGER](image.png)
 
