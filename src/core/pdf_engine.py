@@ -1,8 +1,8 @@
 import os, sys, subprocess
-from PyPDF2 import PdfMerger
+from pypdf import PdfWriter
 
 def merge_pdfs(files, output_path, progress_callback=None):
-    merger = PdfMerger()
+    merger = PdfWriter()
     total = len(files)
     for i, pdf in enumerate(files):
         merger.append(pdf)
