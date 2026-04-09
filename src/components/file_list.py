@@ -22,6 +22,9 @@ class FileListContainer(ctk.CTkFrame):
             text_color=COLOR_TEXT_SECONDARY
         )
 
+        self.empty_icon.place(relx=0.5, rely=0.4, anchor="center")
+        self.empty_text.place(relx=0.5, rely=0.6, anchor="center")
+
         self.drop_target_register(DND_FILES)
         self.dnd_bind("<<Drop>>", on_drop_callback)
 
