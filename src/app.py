@@ -7,6 +7,7 @@ import ctypes
 
 from src.components.action_buttons import ActionButtons
 from src.components.file_list import FileListContainer
+from src.components.preview_panel import PagePreviewPanel
 from src.core.pdf_engine import merge_pdfs, open_file
 from src.utils.helpers import resource_path
 from src.utils.i18n import TEXTS
@@ -19,14 +20,19 @@ class App(TkinterDnD.Tk):
         super().__init__()
 
         self.title("PDF Merger")
-        self.geometry("700x500")
+        self.geometry("1000x600")
         self.iconbitmap(resource_path("icons/favicon.ico"))
 
         self.frame = ctk.CTkFrame(self)
         self.frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-        self.icon_merge = ctk.CTkImage(Image.open(resource_path("icons/link.png")), size=(20, 20))
+        self.frame.columnconfigure(0, weight=1)
+        self.frame.columnconfigure(1, weight=0)
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.rowconfigure(1, weight=0)
+        self.frame.rowconfigure(2, weight=0)   
 
+        self.icon_merge = ctk.CTkImage(Image.open(resource_path("icons/link.png")), size=(20, 20))
         self.icons = {
             "add": ctk.CTkImage(Image.open(resource_path("icons/plus.png")), size=(20, 20)),
             "trash": ctk.CTkImage(Image.open(resource_path("icons/trash-2.png")), size=(20, 20)),
@@ -36,15 +42,17 @@ class App(TkinterDnD.Tk):
             "pdf": ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24))
         }
 
+        self.left_panel = ctk.CTkFrame(self.frame, fg_color="transparent")
+        self.left_panel.grid(row=0, column=0, sticky="nsew", padx=(0, 5))
+
         self.pdf_list_view = FileListContainer(
-            self.frame, 
+            self.left_panel, 
             icons=self.icons,
             on_drop_callback=self.drop,
             on_select=self.select,
             on_delete=self.delete_item
         )
-
-        self.pdf_list_view.pack(fill="both", expand=True, pady=10)
+        self.pdf_list_view.pack(fill="both", expand=True)
 
         self.files = []
         self.selected_index = None
@@ -56,14 +64,16 @@ class App(TkinterDnD.Tk):
             "down": self.down
         }
 
-        self.buttons_view = ActionButtons(self.frame, self.icons, commands)
+        self.buttons_view = ActionButtons(self.left_panel, self.icons, commands)
         self.buttons_view.pack(pady=10)
 
+        self.preview_view = PagePreviewPanel(self.frame)
+
         self.progress = ctk.CTkProgressBar(self.frame)
-        self.progress.pack(fill="x", padx=20, pady=10)
+        self.progress.grid(row=1, column=0, columnspan=2, sticky="ew", padx=20, pady=10)
         self.progress.set(0)
 
-        ctk.CTkButton(
+        self.merge_btn = ctk.CTkButton(
             self.frame, 
             text=TEXTS['btn_merge'], 
             image=self.icon_merge, 
@@ -72,8 +82,10 @@ class App(TkinterDnD.Tk):
             hover_color="#075E54", 
             height=40, 
             width=200,
-            command=self.join).pack(pady=10)
-    
+            command=self.join
+        )
+        self.merge_btn.grid(row=2, column=0, columnspan=2, pady=10)
+
     def update_empty_state(self): 
         if hasattr(self, 'files') and len(self.files) > 0:
             self.empty_icon_label.place_forget()
@@ -88,6 +100,15 @@ class App(TkinterDnD.Tk):
     def select(self, index):
         self.selected_index = index
         self.update_list()
+
+        if index is not None and index < len(self.files):
+            self.frame.columnconfigure(0, weight=0)
+            self.frame.columnconfigure(1, weight=1)
+            
+            self.preview_view.grid(row=0, column=1, sticky="nsew", padx=(5, 10), pady=10)
+            self.preview_view.load_pdf(self.files[index])
+        else: 
+            self.close_preview_dinamically()
 
     def add(self):
         files = filedialog.askopenfilenames(filetypes=[("PDF", "*.pdf")])
@@ -114,6 +135,8 @@ class App(TkinterDnD.Tk):
 
     def clear(self):
         self.files = []
+        self.selected_index = None
+        self.close_preview_dinamically()
         self.update_list()
 
     def delete_item(self, index):
@@ -121,6 +144,7 @@ class App(TkinterDnD.Tk):
         
         if self.selected_index == index:
             self.selected_index = None
+            self.close_preview_dinamically()
         elif self.selected_index is not None and self.selected_index > index:
             self.selected_index -= 1
             
@@ -131,10 +155,6 @@ class App(TkinterDnD.Tk):
         for f in files:
             if f.lower().endswith(".pdf"):
                 self.files.append(f)
-        self.update_list()
-
-    def select(self, index):
-        self.selected_index = index
         self.update_list()
 
     def join(self):
@@ -153,3 +173,9 @@ class App(TkinterDnD.Tk):
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
+
+    def close_preview_dinamically(self):
+        self.frame.columnconfigure(0, weight=1)
+        self.frame.columnconfigure(1, weight=0)
+        self.preview_view.grid_forget()
+        
