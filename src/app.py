@@ -20,7 +20,7 @@ class App(TkinterDnD.Tk):
         super().__init__()
 
         self.title("PDF Merger")
-        self.geometry("1000x600")
+        self.geometry("1100x600")
         self.iconbitmap(resource_path("icons/favicon.ico"))
 
         self.frame = ctk.CTkFrame(self)

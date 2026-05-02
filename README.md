@@ -1,14 +1,22 @@
-A modern, fast, and lightweight desktop utility to merge PDF files, built with Python and CustomTkinter. Avoid slow online tools or privacy-leaking websites; merge your documents locally with an intuitive and elegant interface.
+A powerful and minimalist desktop utility for surgical PDF manipulation. Designed for speed, precision, and total user privacy. Avoid slow online tools or privacy-leaking websites.
 
 ## ✨ Features
 
-Drag & Drop: Drop your PDF files directly into the application.
+Real-Time Visualizer: Instant thumbnail generation for every page of the selected PDF.
 
-List Management: Add files, remove individual items via a dedicated "X" button, or clear the entire list.
+Page Reordering: Change the internal sequence of pages within a file with a single click.
 
-Custom Ordering: Move files up or down to set the exact merging sequence.
+Selective Exclusion: Mark specific pages to be skipped during the merging process with a dedicated "Delete" mode (visualized in red).
 
-Modern UI: Native Dark Mode with a minimalist design powered by CustomTkinter.
+Persistent Memory: Your custom order and excluded pages are saved automatically, even when switching between different files in your list.
+
+Smart Controls: Intuitive movement arrows that hide automatically when a page is at the start/end of a list or marked for exclusion.
+
+Drag & Drop: Drop your PDF files directly into the application to get started.
+
+Global Sequence: Easily set the primary merging order by moving files up or down in the sidebar.
+
+List Control: Individual "X" buttons for quick removal and a "Clear All" option for fresh starts.
 
 Safe & Private: All processing happens locally on your machine; your files never leave your computer.
 
