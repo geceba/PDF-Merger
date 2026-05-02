@@ -1,9 +1,9 @@
 import customtkinter as ctk
+import ctypes
+from pypdf import PdfReader
+from PIL import Image
 from tkinter import filedialog, messagebox
 from tkinterdnd2 import TkinterDnD
-from PIL import Image
-import customtkinter as ctk
-import ctypes
 
 from src.components.action_buttons import ActionButtons
 from src.components.file_list import FileListContainer
@@ -30,7 +30,9 @@ class App(TkinterDnD.Tk):
         self.frame.columnconfigure(1, weight=0)
         self.frame.rowconfigure(0, weight=1)
         self.frame.rowconfigure(1, weight=0)
-        self.frame.rowconfigure(2, weight=0)   
+        self.frame.rowconfigure(2, weight=0)  
+
+        self.pdf_configs = {} 
 
         self.icon_merge = ctk.CTkImage(Image.open(resource_path("icons/link.png")), size=(20, 20))
         self.icons = {
@@ -67,7 +69,10 @@ class App(TkinterDnD.Tk):
         self.buttons_view = ActionButtons(self.left_panel, self.icons, commands)
         self.buttons_view.pack(pady=10)
 
-        self.preview_view = PagePreviewPanel(self.frame)
+        self.preview_view = PagePreviewPanel(
+            self.frame, 
+            on_config_change=self.update_pdf_configs
+        )
 
         self.progress = ctk.CTkProgressBar(self.frame)
         self.progress.grid(row=1, column=0, columnspan=2, sticky="ew", padx=20, pady=10)
@@ -85,6 +90,12 @@ class App(TkinterDnD.Tk):
             command=self.join
         )
         self.merge_btn.grid(row=2, column=0, columnspan=2, pady=10)
+    
+    def update_pdf_configs(self, path, new_order, new_excluded):
+        self.pdf_configs[path] = {
+            "order": list(new_order),
+            "excluded": set(new_excluded)
+        }
 
     def update_empty_state(self): 
         if hasattr(self, 'files') and len(self.files) > 0:
@@ -102,17 +113,34 @@ class App(TkinterDnD.Tk):
         self.update_list()
 
         if index is not None and index < len(self.files):
+            path = self.files[index]
+
             self.frame.columnconfigure(0, weight=0)
             self.frame.columnconfigure(1, weight=1)
             
             self.preview_view.grid(row=0, column=1, sticky="nsew", padx=(5, 10), pady=10)
-            self.preview_view.load_pdf(self.files[index])
+            saved_conf = self.pdf_configs.get(path)
+            self.preview_view.load_pdf(path, saved_config=saved_conf)
         else: 
             self.close_preview_dinamically()
 
     def add(self):
-        files = filedialog.askopenfilenames(filetypes=[("PDF", "*.pdf")])
-        self.files.extend(files)
+        files = filedialog.askopenfilenames(filetypes=[("PDF files", "*.pdf")])
+        if files:
+            for file in files:
+                if file not in self.files:
+                    self.files.append(file)
+
+                    try:
+                        reader = PdfReader(file)
+                        num_pages = len(reader.pages)
+                        self.pdf_configs[file] = {
+                            "order": list(range(num_pages)),
+                            "excluded": set()
+                        }
+                    except Exception as e:
+                        print(f"Error {file}: {e}")
+
         self.update_list()
     
     def up(self):
@@ -167,9 +195,10 @@ class App(TkinterDnD.Tk):
             return
 
         try:
-            merge_pdfs(self.files, output, progress_callback=self.progress.set)
+            print("Merging with configs:", self.pdf_configs)
+            merge_pdfs(self.files, self.pdf_configs, output, progress_callback=self.progress.set)
             open_file(output)
-            messagebox.showinfo("Éxito", "🔥 PDF listo")
+            messagebox.showinfo("Éxito", TEXTS['msg_success'])
 
         except Exception as e:
             messagebox.showerror("Error", str(e))

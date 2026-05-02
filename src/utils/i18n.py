@@ -13,10 +13,12 @@ STRINGS = {
         'btn_clear': "Limpiar",
         'btn_up': "Subir",
         'btn_down': "Bajar",
-        'btn_merge': "Unir PDFs",
+        'btn_merge': "Aplicar Cambios y Unir",
         'msg_no_pdfs': "No hay PDFs",
-        'msg_success': "🔥 PDF listo",
-        'title': "PDF Merger"
+        'msg_success': "PDF listo",
+        'title': "PDF Merger",
+        'preview_title': "Vista Previa",
+        'exclude_label': "Excluir"
     },
     'en': {
         'empty_msg': "Drag PDFs here or click 'Add'",
@@ -24,10 +26,12 @@ STRINGS = {
         'btn_clear': "Clear",
         'btn_up': "Up",
         'btn_down': "Down",
-        'btn_merge': "Merge PDFs",
+        'btn_merge': "Apply Changes & Merge",
         'msg_no_pdfs': "No PDFs found",
-        'msg_success': "🔥 PDF ready",
-        'title': "PDF Merger"
+        'msg_success': "PDF ready",
+        'title': "PDF Merger",
+        'preview_title': "Preview",
+        'exclude_label': "Exclude"
     }
 }
 
