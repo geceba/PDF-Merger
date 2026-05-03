@@ -1,6 +1,8 @@
 import customtkinter as ctk
 import os
 from src.utils.constants import COLOR_SELECTED_ITEM, COLOR_DANGER
+from src.utils.i18n import TEXTS
+from .tooltip import Tooltip
 
 class FileItem(ctk.CTkFrame):
     def __init__(self, master, path, index, is_selected, icon_pdf, icon_doc, on_select, on_delete, on_convert):
@@ -39,8 +41,10 @@ class FileItem(ctk.CTkFrame):
             command=lambda: on_convert(self.path)
         )
 
-        self.btn_word.pack(side="right", padx=10)
-        self.btn_delete.pack(side="right", padx=10)
+        self.btn_delete.pack(side="right", padx=(5, 10))
+        self.btn_word.pack(side="right", padx=5)
+        Tooltip(self.btn_delete, TEXTS['tooltip_delete'])
+        Tooltip(self.btn_word, TEXTS['tooltip_convert'])
 
         self.bind("<Button-1>", lambda e: on_select(index))
         self.icon_label.bind("<Button-1>", lambda e: on_select(index))

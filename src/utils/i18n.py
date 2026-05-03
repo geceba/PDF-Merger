@@ -23,7 +23,9 @@ STRINGS = {
         'warning_title': "Aviso",
         'msg_conversion_success': "Archivo Word listo",
         'msg_conversion_error': "La conversión falló. El PDF podría ser un escaneo o basado en imagen.",
-        'error_title': "Error"
+        'error_title': "Error",
+        'tooltip_delete': "Eliminar archivo",
+        'tooltip_convert': "Convertir a Word"
     },
     'en': {
         'empty_msg': "Drag PDFs here or click 'Add'",
@@ -41,7 +43,9 @@ STRINGS = {
         'warning_title': "Warning",
         'msg_conversion_success': "Word file ready",
         'msg_conversion_error': "Conversion failed. The PDF might be scanned or image-based.",
-        'error_title': "Error"
+        'error_title': "Error",
+        'tooltip_delete': "Delete file",
+        'tooltip_convert': "Convert to Word"
     }
 }
 
