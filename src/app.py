@@ -41,7 +41,9 @@ class App(TkinterDnD.Tk):
             "up": ctk.CTkImage(Image.open(resource_path("icons/square-chevron-up.png")), size=(20, 20)),
             "down": ctk.CTkImage(Image.open(resource_path("icons/square-chevron-down.png")), size=(20, 20)),
             "big_pdf": ctk.CTkImage(Image.open(resource_path("icons/file-plus-corner.png")), size=(100, 100)),
-            "pdf": ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24))
+            "pdf": ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24)),
+            "right_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-right.png")), size=(15, 15)),
+            "left_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-left.png")), size=(15, 15))
         }
 
         self.left_panel = ctk.CTkFrame(self.frame, fg_color="transparent")
@@ -71,7 +73,8 @@ class App(TkinterDnD.Tk):
 
         self.preview_view = PagePreviewPanel(
             self.frame, 
-            on_config_change=self.update_pdf_configs
+            on_config_change=self.update_pdf_configs,
+            icons=self.icons,
         )
 
         self.progress = ctk.CTkProgressBar(self.frame)

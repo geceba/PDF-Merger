@@ -5,9 +5,10 @@ from src.utils.i18n import TEXTS
 from src.utils.constants import COLOR_DEFAULT, COLOR_DEFAULT_HOVER, COLOR_SELECT_TO_DELETE, COLOR_SELECT_TO_DELETE_HOVER
 
 class PagePreviewPanel(ctk.CTkScrollableFrame):
-    def __init__(self, master, on_config_change=None, **kwargs):
+    def __init__(self, master, on_config_change=None, icons=None, **kwargs):
         super().__init__(master, width=500, label_text=TEXTS['preview_title'], **kwargs)
-        self.on_config_change = on_config_change 
+        self.on_config_change = on_config_change
+        self.icons = icons
         self.current_order = []
         self.selected_pages = set()
     
@@ -76,7 +77,7 @@ class PagePreviewPanel(ctk.CTkScrollableFrame):
 
                 if display_idx > 0:
                     ctk.CTkButton(
-                            ctrl_frame, text="←", width=30, 
+                            ctrl_frame, text="", image=self.icons["left_arrow"], width=30, 
                             command=lambda i=display_idx: self.move(i, -1, pdf_path)
                         ).pack(side="left", expand=True, padx=2)
                 else:
@@ -84,7 +85,7 @@ class PagePreviewPanel(ctk.CTkScrollableFrame):
 
                 if display_idx < total_pages - 1:
                     ctk.CTkButton(
-                        ctrl_frame, text="→", width=30, 
+                        ctrl_frame, text="", image=self.icons["right_arrow"], width=30, 
                         command=lambda i=display_idx: self.move(i, 1, pdf_path)
                     ).pack(side="right", expand=True, padx=2)
                 else:
