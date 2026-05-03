@@ -9,6 +9,7 @@ from src.components.action_buttons import ActionButtons
 from src.components.file_list import FileListContainer
 from src.components.preview_panel import PagePreviewPanel
 from src.core.pdf_engine import merge_pdfs, open_file
+from src.core.doc_engine import DocEngine
 from src.utils.helpers import resource_path
 from src.utils.i18n import TEXTS
 
@@ -43,7 +44,8 @@ class App(TkinterDnD.Tk):
             "big_pdf": ctk.CTkImage(Image.open(resource_path("icons/file-plus-corner.png")), size=(100, 100)),
             "pdf": ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24)),
             "right_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-right.png")), size=(15, 15)),
-            "left_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-left.png")), size=(15, 15))
+            "left_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-left.png")), size=(15, 15)),
+            "doc": ctk.CTkImage(Image.open(resource_path("icons/doc.png")), size=(24, 24))
         }
 
         self.left_panel = ctk.CTkFrame(self.frame, fg_color="transparent")
@@ -54,7 +56,8 @@ class App(TkinterDnD.Tk):
             icons=self.icons,
             on_drop_callback=self.drop,
             on_select=self.select,
-            on_delete=self.delete_item
+            on_delete=self.delete_item,
+            on_convert=self.convert_to_word
         )
         self.pdf_list_view.pack(fill="both", expand=True)
 
@@ -180,6 +183,14 @@ class App(TkinterDnD.Tk):
             self.selected_index -= 1
             
         self.update_list()
+    
+    def convert_to_word(self, path):
+        success, result = DocEngine.convert_pdf_to_word(path)
+        if success:
+            open_file(result)
+            messagebox.showinfo(TEXTS['success_title'], TEXTS['msg_conversion_success'])
+        else:
+            messagebox.showerror(TEXTS['error_title'], result)
 
     def drop(self, event):
         files = self.tk.splitlist(event.data)
@@ -198,7 +209,6 @@ class App(TkinterDnD.Tk):
             return
 
         try:
-            print("Merging with configs:", self.pdf_configs)
             merge_pdfs(self.files, self.pdf_configs, output, progress_callback=self.progress.set)
             open_file(output)
             messagebox.showinfo(TEXTS['success_title'], TEXTS['msg_success'])

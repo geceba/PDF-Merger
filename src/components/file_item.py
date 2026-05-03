@@ -3,9 +3,10 @@ import os
 from src.utils.constants import COLOR_SELECTED_ITEM, COLOR_DANGER
 
 class FileItem(ctk.CTkFrame):
-    def __init__(self, master, path, index, is_selected, icon_pdf, on_select, on_delete):
+    def __init__(self, master, path, index, is_selected, icon_pdf, icon_doc, on_select, on_delete, on_convert):
         super().__init__(master)
 
+        self.path = path
         if is_selected:
             self.configure(fg_color=COLOR_SELECTED_ITEM)
 
@@ -28,6 +29,17 @@ class FileItem(ctk.CTkFrame):
             command=lambda: on_delete(index)
         )
 
+        self.btn_word = ctk.CTkButton(
+            self,
+            width=28,
+            height=28,
+            fg_color="transparent",
+            text="",
+            image=icon_doc,
+            command=lambda: on_convert(self.path)
+        )
+
+        self.btn_word.pack(side="right", padx=10)
         self.btn_delete.pack(side="right", padx=10)
 
         self.bind("<Button-1>", lambda e: on_select(index))

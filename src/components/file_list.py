@@ -5,12 +5,13 @@ from src.utils.i18n import TEXTS
 from .file_item import FileItem
 
 class FileListContainer(ctk.CTkFrame):
-    def __init__(self, master, icons, on_drop_callback, on_select, on_delete):
+    def __init__(self, master, icons, on_drop_callback, on_select, on_delete, on_convert):
         super().__init__(master, fg_color=COLOR_BG_LIST, corner_radius=12)
 
         self.icons = icons
         self.on_select = on_select
         self.on_delete = on_delete
+        self.on_convert = on_convert
 
         self.list_frame = ctk.CTkScrollableFrame(
             self, fg_color="transparent", scrollbar_button_color="#333333"
@@ -47,7 +48,9 @@ class FileListContainer(ctk.CTkFrame):
                     index=i,
                     is_selected=(selected_index == i),
                     icon_pdf=self.icons['pdf'],
+                    icon_doc=self.icons['doc'],
                     on_select=self.on_select,
-                    on_delete=self.on_delete
+                    on_delete=self.on_delete,
+                    on_convert=self.on_convert
                 )
                 item.pack(fill="x", pady=2, padx=5)

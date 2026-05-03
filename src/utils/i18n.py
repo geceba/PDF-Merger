@@ -20,7 +20,10 @@ STRINGS = {
         'preview_title': "Vista Previa",
         'exclude_label': "Excluir",
         'success_title': "¡Listo!",
-        'warning_title': "Aviso"
+        'warning_title': "Aviso",
+        'msg_conversion_success': "Archivo Word listo",
+        'msg_conversion_error': "La conversión falló. El PDF podría ser un escaneo o basado en imagen.",
+        'error_title': "Error"
     },
     'en': {
         'empty_msg': "Drag PDFs here or click 'Add'",
@@ -35,7 +38,10 @@ STRINGS = {
         'preview_title': "Preview",
         'exclude_label': "Exclude",
         'success_title': "Ready!",
-        'warning_title': "Warning"
+        'warning_title': "Warning",
+        'msg_conversion_success': "Word file ready",
+        'msg_conversion_error': "Conversion failed. The PDF might be scanned or image-based.",
+        'error_title': "Error"
     }
 }
 
