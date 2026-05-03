@@ -49,6 +49,9 @@ class PagePreviewPanel(ctk.CTkScrollableFrame):
         self.render_pages(pdf_path)
     
     def render_pages(self, pdf_path):
+        for widget in self.winfo_children():
+            widget.destroy()
+            
         thumbnails = get_page_thumbnails(pdf_path)
         total_pages = len(thumbnails)
 
