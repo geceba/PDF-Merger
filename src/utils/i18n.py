@@ -18,7 +18,9 @@ STRINGS = {
         'msg_success': "PDF listo",
         'title': "PDF Merger",
         'preview_title': "Vista Previa",
-        'exclude_label': "Excluir"
+        'exclude_label': "Excluir",
+        'success_title': "¡Listo!",
+        'warning_title': "Aviso"
     },
     'en': {
         'empty_msg': "Drag PDFs here or click 'Add'",
@@ -31,7 +33,9 @@ STRINGS = {
         'msg_success': "PDF ready",
         'title': "PDF Merger",
         'preview_title': "Preview",
-        'exclude_label': "Exclude"
+        'exclude_label': "Exclude",
+        'success_title': "Ready!",
+        'warning_title': "Warning"
     }
 }
 

@@ -190,7 +190,7 @@ class App(TkinterDnD.Tk):
 
     def join(self):
         if not self.files:
-            messagebox.showwarning("Aviso", TEXTS['msg_no_pdfs'])
+            messagebox.showwarning(TEXTS['warning_title'], TEXTS['msg_no_pdfs'])
             return
 
         output = filedialog.asksaveasfilename(defaultextension=".pdf")
@@ -201,7 +201,7 @@ class App(TkinterDnD.Tk):
             print("Merging with configs:", self.pdf_configs)
             merge_pdfs(self.files, self.pdf_configs, output, progress_callback=self.progress.set)
             open_file(output)
-            messagebox.showinfo("Éxito", TEXTS['msg_success'])
+            messagebox.showinfo(TEXTS['success_title'], TEXTS['msg_success'])
 
         except Exception as e:
             messagebox.showerror("Error", str(e))
