@@ -47,8 +47,7 @@ class FileListContainer(ctk.CTkFrame):
                     path=path,
                     index=i,
                     is_selected=(selected_index == i),
-                    icon_pdf=self.icons['pdf'],
-                    icon_doc=self.icons['doc'],
+                    icons=self.icons,
                     on_select=self.on_select,
                     on_delete=self.on_delete,
                     on_convert=self.on_convert

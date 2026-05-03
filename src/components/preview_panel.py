@@ -6,7 +6,7 @@ from src.utils.constants import COLOR_DEFAULT, COLOR_DEFAULT_HOVER, COLOR_SELECT
 
 class PagePreviewPanel(ctk.CTkScrollableFrame):
     def __init__(self, master, on_config_change=None, icons=None, **kwargs):
-        super().__init__(master, width=500, label_text=TEXTS['preview_title'], **kwargs)
+        super().__init__(master, width=420, label_text=TEXTS['preview_title'], **kwargs)
         self.on_config_change = on_config_change
         self.icons = icons
         self.current_order = []
@@ -52,6 +52,9 @@ class PagePreviewPanel(ctk.CTkScrollableFrame):
         thumbnails = get_page_thumbnails(pdf_path)
         total_pages = len(thumbnails)
 
+        for i in range(2):
+            self.grid_columnconfigure(i, weight=1)
+
         for display_idx, page_idx in enumerate(self.current_order):
             is_excluded = page_idx in self.selected_pages
 
@@ -59,7 +62,7 @@ class PagePreviewPanel(ctk.CTkScrollableFrame):
             current_hover = COLOR_SELECT_TO_DELETE_HOVER if is_excluded else COLOR_DEFAULT_HOVER
 
             container = ctk.CTkFrame(self, fg_color=current_fg)
-            container.grid(row=display_idx//3, column=display_idx%3, padx=10, pady=10)
+            container.grid(row=display_idx//2, column=display_idx%2, padx=10, pady=10, sticky="ew")
 
             img_ctk = ctk.CTkImage(thumbnails[page_idx], size=(120, 160))
             btn = ctk.CTkButton(

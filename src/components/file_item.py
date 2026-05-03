@@ -5,14 +5,14 @@ from src.utils.i18n import TEXTS
 from .tooltip import Tooltip
 
 class FileItem(ctk.CTkFrame):
-    def __init__(self, master, path, index, is_selected, icon_pdf, icon_doc, on_select, on_delete, on_convert):
+    def __init__(self, master, path, index, is_selected, icons, on_select, on_delete, on_convert):
         super().__init__(master)
 
         self.path = path
         if is_selected:
             self.configure(fg_color=COLOR_SELECTED_ITEM)
 
-        self.icon_label = ctk.CTkLabel(self, image=icon_pdf, text="", cursor="hand2")
+        self.icon_label = ctk.CTkLabel(self, image=icons['pdf'], text="", cursor="hand2")
         self.icon_label.pack(side="left", padx=10)
 
         name = os.path.basename(path)
@@ -21,9 +21,10 @@ class FileItem(ctk.CTkFrame):
 
         self.btn_delete = ctk.CTkButton(
             self, 
-            text="✕", 
+            text="", 
             width=28, 
             height=28,
+            image=icons['delete'],
             fg_color="transparent",
             hover_color=COLOR_DANGER,
             text_color="#FFFFFF",
@@ -37,7 +38,7 @@ class FileItem(ctk.CTkFrame):
             height=28,
             fg_color="transparent",
             text="",
-            image=icon_doc,
+            image=icons['doc'],
             command=lambda: on_convert(self.path)
         )
 

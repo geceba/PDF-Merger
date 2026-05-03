@@ -45,7 +45,8 @@ class App(TkinterDnD.Tk):
             "pdf": ctk.CTkImage(Image.open(resource_path("icons/pdf.png")), size=(24, 24)),
             "right_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-right.png")), size=(15, 15)),
             "left_arrow": ctk.CTkImage(Image.open(resource_path("icons/chevron-left.png")), size=(15, 15)),
-            "doc": ctk.CTkImage(Image.open(resource_path("icons/doc.png")), size=(24, 24))
+            "doc": ctk.CTkImage(Image.open(resource_path("icons/doc.png")), size=(24, 24)),
+            "delete": ctk.CTkImage(Image.open(resource_path("icons/x.png")), size=(20, 20))
         }
 
         self.left_panel = ctk.CTkFrame(self.frame, fg_color="transparent")
@@ -121,8 +122,8 @@ class App(TkinterDnD.Tk):
         if index is not None and index < len(self.files):
             path = self.files[index]
 
-            self.frame.columnconfigure(0, weight=0)
-            self.frame.columnconfigure(1, weight=1)
+            self.frame.columnconfigure(0, weight=1) 
+            self.frame.columnconfigure(1, weight=0)
             
             self.preview_view.grid(row=0, column=1, sticky="nsew", padx=(5, 10), pady=10)
             saved_conf = self.pdf_configs.get(path)
