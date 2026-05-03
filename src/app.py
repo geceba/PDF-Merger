@@ -131,8 +131,18 @@ class App(TkinterDnD.Tk):
         else: 
             self.close_preview_dinamically()
 
+    def drop(self, event):
+        files = self.tk.splitlist(event.data)
+        self.add_and_save_in_configs(files)
+        self.update_list()
+
     def add(self):
         files = filedialog.askopenfilenames(filetypes=[("PDF files", "*.pdf")])
+        self.add_and_save_in_configs(files)
+    
+        self.update_list()
+
+    def add_and_save_in_configs(self, files):
         if files:
             for file in files:
                 if file not in self.files:
@@ -147,8 +157,6 @@ class App(TkinterDnD.Tk):
                         }
                     except Exception as e:
                         print(f"Error {file}: {e}")
-
-        self.update_list()
     
     def up(self):
         i = self.selected_index
@@ -193,12 +201,6 @@ class App(TkinterDnD.Tk):
         else:
             messagebox.showerror(TEXTS['error_title'], result)
 
-    def drop(self, event):
-        files = self.tk.splitlist(event.data)
-        for f in files:
-            if f.lower().endswith(".pdf"):
-                self.files.append(f)
-        self.update_list()
 
     def join(self):
         if not self.files:
