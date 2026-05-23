@@ -2,6 +2,8 @@ from PySide6.QtWidgets import QWidget, QHBoxLayout, QLabel
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QPainter
 from PySide6.QtSvg import QSvgRenderer
+
+from src.ui.components.svg_icon import SvgIcon
 class PrivacyBannerWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -18,18 +20,8 @@ class PrivacyBannerWidget(QWidget):
         self.icon_label.setObjectName("PrivacyIcon")
 
         svg_path = "src/ui/assets/shield_check.svg"
-        icon_size = QSize(20, 20)
-
-        pixmap = QPixmap(icon_size)
-        pixmap.fill(Qt.transparent)
-
-        painter = QPainter(pixmap)
-        renderer = QSvgRenderer(svg_path)
-        renderer.render(painter)
-        painter.end()
-
-        self.icon_label.setPixmap(pixmap)
-        self.icon_label.setFixedSize(icon_size)
+        self.icon_label = SvgIcon(svg_path, size=(16, 16), parent=self)
+        self.icon_label.setObjectName("PrivacyIcon")
 
         self.text_label = QLabel(
             "Tus archivos no salen de aquí. Todo el procesamiento se realiza de forma 100% local y segura."
