@@ -7,7 +7,7 @@ from src.ui.components.preview_panel import PreviewPanelWidget
 from src.ui.components.navbar import NavbarWidget
 from src.ui.components.privacy_banner import PrivacyBannerWidget
 
-from src.ui.styles.styles import BODY_CONTAINER_STYLE
+from src.ui.styles.styles import BODY_CONTAINER_STYLE, PRIVACY_BANNER_STYLE
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
 
     def apply_base_styles(self):
         self.body_container.setStyleSheet(BODY_CONTAINER_STYLE)
+        self.privacy_banner.setStyleSheet(PRIVACY_BANNER_STYLE)
 
     def init_right_sections(self):
         self.navbar = NavbarWidget(self)

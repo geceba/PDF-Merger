@@ -68,8 +68,9 @@ SIDEBAR_STYLE = f"""
         color: {COLOR_BRAND_PURPLE};
         font-weight: 600;
     }}
+"""
 
-    # Privacy Banner
+PRIVACY_BANNER_STYLE = f"""
     PrivacyBannerWidget {{
         background-color: {COLOR_PRIVACY_BANNER_BG};
         border: 1px solid {COLOR_PRIVACY_BORDER};
@@ -82,7 +83,6 @@ SIDEBAR_STYLE = f"""
         font-size: 12px;
         font-weight: 500;
     }}
-
 """
 
 FILE_LIST_STYLE = f"""
