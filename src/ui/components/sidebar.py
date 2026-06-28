@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QButtonGroup
 from PySide6.QtCore import QSize, Qt, Signal
 
-from src.ui.components.svg_icon import SvgIcon
+from src.ui.components.common.svg_icon import SvgIcon
 from src.ui.styles.styles import SIDEBAR_STYLE
 
 class SidebarWidget(QWidget):

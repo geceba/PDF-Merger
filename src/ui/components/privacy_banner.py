@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QLabel
 from PySide6.QtCore import Qt
 
-from src.ui.components.svg_icon import SvgIcon
+from src.ui.components.common.svg_icon import SvgIcon
 class PrivacyBannerWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
